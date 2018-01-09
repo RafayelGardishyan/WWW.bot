@@ -31,7 +31,7 @@ def parse_tasks1():
 	embed = discord.Embed(color=0x9f6f0f, title='Tasks')
 	for task in raw:
 		embed.add_field(name=tasknames[k], value="User: " + taskusers[k] + "\nDeadline: " + taskdeadlines[k], inline=False)
-		k =+ 1
+		k += 1
 	embeds = [embed]
 	return embeds
 
@@ -53,7 +53,12 @@ def parse_people1():
 	for person in raw:
 		if peopleactive[k] == True:
 			embed.add_field(name="User:", value="Name: " + peoplenames[k] + "\nRank: " + peopleranks[k], inline=False)
-		k =+ 1
+		
+		print(peoplenames[k])
+		print(k)
+		print('------')
+		
+		k += 1
 	embeds = [embed]
 	return embeds
 	
@@ -100,6 +105,11 @@ def parse_people2():
 			embed.add_field(name="Name:", value=peoplenames[k], inline=False)
 			embed.add_field(name="Rank:", value=peopleranks[k], inline=False)
 			embeds.append(embed)
+		
+		print(peoplenames[k])
+		print(k)
+		print('------')
+		
 		k += 1
 	return embeds
 	

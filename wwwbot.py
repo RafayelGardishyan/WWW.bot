@@ -39,16 +39,20 @@ def parse_people1():
 	raw = get_list(urlstandard + 'users')
 	peoplenames = []
 	peopleranks = []
+	peopleactive = []
 	for i in raw:
 		name = i['name']
 		rank = i['rang']
+		active = i['activated']
 		peoplenames.append(name)
 		peopleranks.append(rank)
+		peopleactive.append(active)
 	k = 0
 	
 	embed = discord.Embed(color=0x9f6f0f, title='People')
-	for task in raw:
-		embed.add_field(name="User:", value="Name: " + peoplenames[k] + "\nRank: " + peopleranks[k], inline=False)
+	for person in raw:
+		if peopleactive[k] == True:
+			embed.add_field(name="User:", value="Name: " + peoplenames[k] + "\nRank: " + peopleranks[k], inline=False)
 		k =+ 1
 	embeds = [embed]
 	return embeds
@@ -80,19 +84,22 @@ def parse_people2():
 	raw = get_list(urlstandard + 'users')
 	peoplenames = []
 	peopleranks = []
+	peopleactive = []
 	for i in raw:
 		name = i['name']
 		rank = i['rang']
+		active = i['activated']
 		peoplenames.append(name)
 		peopleranks.append(rank)
-
+		peopleactive.append(active)
 	k = 0
 	embeds = []
-	for task in raw:
-		embed = discord.Embed(color=0x9f6f0f, title="User")
-		embed.add_field(name="Name:", value=peoplenames[k], inline=False)
-		embed.add_field(name="Rank:", value=peopleranks[k], inline=False)
-		embeds.append(embed)
+	for person in raw:
+		if peopleactive[k] == True:
+			embed = discord.Embed(color=0x9f6f0f, title="User")
+			embed.add_field(name="Name:", value=peoplenames[k], inline=False)
+			embed.add_field(name="Rank:", value=peopleranks[k], inline=False)
+			embeds.append(embed)
 		k += 1
 	return embeds
 	
@@ -111,6 +118,9 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
+	if message.content.startswith('www.test'):
+		await client.send_message(message.channel, '( ͡° ͜ʖ ͡°)')
+	
 	if message.content.startswith('www.tasks'):
 		mes = await client.send_message(message.channel, 'loading tasks.')
 		await asyncio.sleep(1)
